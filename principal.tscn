@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://o6b68vitw1uv"]
+
+[ext_resource type="PackedScene" uid="uid://dxxh6jndpqnuq" path="res://cenario_grama.tscn" id="1_tr6oq"]
+[ext_resource type="PackedScene" uid="uid://bg7eritw2j2lq" path="res://personagem.tscn" id="2_m7tbw"]
+[ext_resource type="Script" uid="uid://dhauryq13r4jn" path="res://tomate.gd" id="3_7cuts"]
+[ext_resource type="Texture2D" uid="uid://bdtjk8eyp07wp" path="res://Crop_Spritesheet.png" id="3_rrtif"]
+[ext_resource type="Texture2D" uid="uid://cxexwsvq3ck7i" path="res://summer tilemap.png" id="5_emcp4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cuts"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emcp4"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep5lw"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpj0s"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwsrf"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlig8"]
+atlas = ExtResource("3_rrtif")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrbya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cuts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emcp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep5lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpj0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwsrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlig8")
+}],
+"loop": true,
+"name": &"tomate",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ommbi"]
+size = Vector2(12, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrbya"]
+atlas = ExtResource("5_emcp4")
+region = Rect2(128, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ommbi"]
+atlas = ExtResource("5_emcp4")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf0on"]
+atlas = ExtResource("5_emcp4")
+region = Rect2(128, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe7g3"]
+atlas = ExtResource("5_emcp4")
+region = Rect2(128, 160, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iuule"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrbya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ommbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf0on")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe7g3")
+}],
+"loop": true,
+"name": &"vitoria-regia",
+"speed": 3.0
+}]
+
+[node name="principal" type="Node2D" unique_id=583057157]
+
+[node name="cenario-grama" parent="." unique_id=1054173691 instance=ExtResource("1_tr6oq")]
+
+[node name="fazendeira" parent="." unique_id=415785404 instance=ExtResource("2_m7tbw")]
+z_index = 1
+position = Vector2(611, 107)
+
+[node name="Camera2D" type="Camera2D" parent="fazendeira" unique_id=1310976037]
+position = Vector2(1, 3)
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+
+[node name="tomate" type="Area2D" parent="." unique_id=2120182574]
+position = Vector2(528, 106)
+monitorable = false
+script = ExtResource("3_7cuts")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="tomate" unique_id=1516795289]
+sprite_frames = SubResource("SpriteFrames_xrbya")
+animation = &"tomate"
+frame = 3
+frame_progress = 0.7273926
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tomate" unique_id=1495286914]
+shape = SubResource("RectangleShape2D_ommbi")
+
+[node name="vitoria-regia" type="AnimatedSprite2D" parent="." unique_id=916163667]
+position = Vector2(488, 72)
+sprite_frames = SubResource("SpriteFrames_iuule")
+animation = &"vitoria-regia"
+autoplay = "vitoria-regia"
+frame_progress = 0.4084761
+
+[node name="seguradados" type="CanvasLayer" parent="." unique_id=1687520177]
+
+[node name="semente_tomate" type="Label" parent="seguradados" unique_id=864503340]
+texture_filter = 1
+offset_left = 1.0
+offset_right = 153.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.9703147, 0.22828275, 0.28483427, 1)
+theme_override_font_sizes/font_size = 26
+text = "Semente de tomate"
+
+[connection signal="body_entered" from="tomate" to="tomate" method="_on_body_entered"]
